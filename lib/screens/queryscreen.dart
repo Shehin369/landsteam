@@ -4,6 +4,7 @@ import 'package:landsteam/controllers/authentication_controller.dart';
 import 'package:landsteam/controllers/property_controller.dart';
 import 'package:landsteam/models/location.dart';
 import 'package:landsteam/models/property.dart';
+import 'package:landsteam/screens/myqueryscreen.dart';
 import 'package:provider/provider.dart';
 
 class AddQuerryScreen extends StatefulWidget {
@@ -111,6 +112,18 @@ class _AddQuerryScreenState extends State<AddQuerryScreen> {
           ),
         ),
         iconTheme: const IconThemeData(color: kSecondaryTextColor),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Myqueryscreen()),
+              );
+            },
+            icon: Icon(Icons.history, color: kPrimaryTextColor),
+          ),
+          SizedBox(width: 10),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),

@@ -81,12 +81,12 @@ class HomeScreen extends StatelessWidget {
                 'List Your Properties',
                 Icons.add_business_outlined,
               ),
-              const SizedBox(height: 20),
-              _buildStyledButton(
-                context,
-                'My Queries',
-                Icons.note_alt_outlined,
-              ),
+              // const SizedBox(height: 20),
+              // _buildStyledButton(
+              //   context,
+              //   'My Queries',
+              //   Icons.note_alt_outlined,
+              // ),
               const SizedBox(height: 20),
               _buildStyledButton(context, 'My Profile', Icons.person),
             ],
@@ -189,11 +189,11 @@ class HomeScreen extends StatelessWidget {
                 context,
                 MaterialPageRoute(builder: (context) => AddQuerryScreen()),
               );
-            } else if (title == 'My Queries') {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Myqueryscreen()),
-              );
+              // } else if (title == 'My Queries') {
+              //   Navigator.push(
+              //     context,
+              //     MaterialPageRoute(builder: (context) => Myqueryscreen()),
+              //   );
             } else if (title == 'My Profile') {
               Navigator.push(
                 context,

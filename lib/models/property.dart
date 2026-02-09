@@ -64,6 +64,7 @@ class Properties {
     this.username,
     this.phoneNumber,
     this.imageurl,
+    this.imageurl2,
     this.title,
   });
 
@@ -87,6 +88,7 @@ class Properties {
     username = json['username'];
     phoneNumber = json['phone_number'];
     imageurl = json['imageurl'];
+    imageurl2 = json['imageurl2'];
     title = json['title'];
   }
 
@@ -148,6 +150,9 @@ class Properties {
     }
     if (imageurl != null) {
       data['imageurl'] = imageurl;
+    }
+    if (imageurl2 != null) {
+      data['imageurl2'] = imageurl2;
     }
     if (title != null) {
       data['title'] = title;

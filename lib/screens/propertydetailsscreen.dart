@@ -9,6 +9,9 @@ class PropertyDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final pricestg = (property.rent ?? false)
+        ? '₹ ${property.price} - ₹ ${property.toPrice}'
+        : '₹ ${property.price}';
     return Scaffold(
       backgroundColor: kBackgroundColor,
       appBar: AppBar(
@@ -29,25 +32,28 @@ class PropertyDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Images Section
-            SizedBox(
-              height: 250,
-              child: PageView(
-                children: [
-                  if (property.imageurl != null)
-                    Image.network(
-                      property.imageurl!,
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => _buildImagePlaceholder(),
-                    ),
-                  if (property.imageurl2 != null)
-                    Image.network(
-                      property.imageurl2!,
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => _buildImagePlaceholder(),
-                    ),
-                  if (property.imageurl == null && property.imageurl2 == null)
-                    _buildImagePlaceholder(),
-                ],
+            Visibility(
+              visible: (property.imageurl ?? '').isNotEmpty,
+              child: SizedBox(
+                height: 250,
+                child: PageView(
+                  children: [
+                    if (property.imageurl != null)
+                      Image.network(
+                        '${supabaseURL}/storage/v1/object/public/doc/${property.imageurl!}',
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => _buildImagePlaceholder(),
+                      ),
+                    if (property.imageurl2 != null)
+                      Image.network(
+                        '${supabaseURL}/storage/v1/object/public/doc/${property.imageurl2!}',
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => _buildImagePlaceholder(),
+                      ),
+                    if (property.imageurl == null && property.imageurl2 == null)
+                      _buildImagePlaceholder(),
+                  ],
+                ),
               ),
             ),
 
@@ -85,8 +91,9 @@ class PropertyDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
+
                   Text(
-                    '₹ ${property.price ?? 0}',
+                    pricestg,
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w800,
@@ -106,12 +113,19 @@ class PropertyDetailsScreen extends StatelessWidget {
                   const SizedBox(height: 16),
 
                   // Description
-                  const Text(
-                    'Description',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: kPrimaryTextColor,
+                  Visibility(
+                    visible: (property.description ?? '').isNotEmpty,
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Description',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: kPrimaryTextColor,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -122,7 +136,6 @@ class PropertyDetailsScreen extends StatelessWidget {
                       height: 1.5,
                     ),
                   ),
-
                   const SizedBox(height: 24),
 
                   // Rental specific details
@@ -147,6 +160,18 @@ class PropertyDetailsScreen extends StatelessWidget {
                         Icons.people_outline,
                         'Occupancy',
                         property.sharing ?? false ? 'Sharing' : 'Single',
+                      ),
+                      const SizedBox(height: 12),
+                      _buildInfoRow(
+                        Icons.person_2_outlined,
+                        'No of people',
+                        '${property.peoples}',
+                      ),
+                      const SizedBox(height: 12),
+                      _buildInfoRow(
+                        Icons.date_range,
+                        'Date of requirement',
+                        '${property.date}',
                       ),
                     ],
                   ],

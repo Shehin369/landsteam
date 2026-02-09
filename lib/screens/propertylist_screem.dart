@@ -63,7 +63,7 @@ class PropertyCard extends StatelessWidget {
     final priceText = property.price != null
         ? '₹ ${property.price}'
         : (property.toPrice != null ? '₹ ${property.toPrice}' : 'Price N/A');
-    final dateText = property.date ?? property.createdAt ?? '';
+    final dateText = (property.createdAt ?? '').split('T')[0];
     final modeText = (property.rent ?? false) ? 'Rent' : 'Sell';
     String modeText2 = (property.residential ?? false)
         ? 'Residential'
@@ -110,6 +110,7 @@ class PropertyCard extends StatelessWidget {
           child: Row(
             children: [
               // image
+              //    '${supabaseURL}/storage/v1/object/public/profilepic/${member!.member!.profilePhotoUrl!}.jpg',
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
@@ -119,7 +120,7 @@ class PropertyCard extends StatelessWidget {
                   child:
                       property.imageurl != null && property.imageurl!.isNotEmpty
                       ? Image.network(
-                          property.imageurl!,
+                          '${supabaseURL}/storage/v1/object/public/doc/${property.imageurl!}',
                           fit: BoxFit.cover,
                           errorBuilder: (_, __, ___) {
                             return const Icon(

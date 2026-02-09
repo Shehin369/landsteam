@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:landsteam/constants.dart';
 import 'package:landsteam/controllers/authentication_controller.dart';
+import 'package:landsteam/controllers/photo_controller.dart';
 import 'package:landsteam/controllers/property_controller.dart';
 import 'package:landsteam/models/location.dart';
 import 'package:landsteam/models/property.dart';
@@ -35,12 +36,16 @@ class _AddPropertyScreenState extends State<AddPropertyScreen> {
   final ImagePicker _picker = ImagePicker();
 
   addpropertyApiCall() async {
+    final filename1 = await _uploadPhoto(_image1);
+    final filename2 = await _uploadPhoto(_image2);
     Properties property = Properties(
       title: title,
       locationName: selectedLocation,
       price: budgetFrom?.toInt(),
       residential: propertyType == 'Residential',
       rent: type == 'Rent',
+      imageurl: filename1,
+      imageurl2: filename2,
       // date: selectedDate != null
       //     ? '${selectedDate!.year}-${selectedDate!.month.toString().padLeft(2, '0')}-${selectedDate!.day.toString().padLeft(2, '0')}'
       //     : null,
@@ -101,9 +106,25 @@ class _AddPropertyScreenState extends State<AddPropertyScreen> {
     }
   }
 
+  Future<String> _uploadPhoto(File? newfile) async {
+    if (newfile != null) {
+      final _imageFilenew = File(newfile.path);
+      PhotoController controller = PhotoController();
+      // setState(() {
+      //   loading = true;
+      // });
+      final status = await controller.compressAndUploadImage(_imageFilenew);
+      return status;
+      // _compressImage(_imageFile!, profilepic); // Compress the selected image
+    } else
+      return '';
+  }
+
   @override
   void dispose() {
     _descriptionController.dispose();
+    _image1?.delete();
+    _image2?.delete();
     super.dispose();
   }
 

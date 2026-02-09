@@ -12,7 +12,8 @@ class PropertyController extends ChangeNotifier {
         .select()
         .eq('query', false)
         .eq('status', 1)
-        .eq('userid', 1);
+        .eq('userid', 1)
+        .order('created_at', ascending: false);
     // print(json.encode(data));
     Map<String, dynamic> newdata = {'properties': data};
     Propertybase base = Propertybase.fromJson(newdata);
@@ -55,7 +56,8 @@ class PropertyController extends ChangeNotifier {
         .eq('locationid', locationid)
         .eq('query', false)
         .eq('rent', false)
-        .eq('status', 1);
+        .eq('status', 1)
+        .order('created_at', ascending: false);
     // print(json.encode(data));
     Map<String, dynamic> newdata = {'properties': data};
     Propertybase base = Propertybase.fromJson(newdata);
@@ -87,7 +89,8 @@ class PropertyController extends ChangeNotifier {
         .eq('locationid', prop.locationid!)
         .eq('query', false)
         .eq('rent', true)
-        .eq('status', 1);
+        .eq('status', 1)
+        .order('created_at', ascending: false);
     // print(json.encode(data));
     Map<String, dynamic> newdata = {'properties': data};
     Propertybase base = Propertybase.fromJson(newdata);

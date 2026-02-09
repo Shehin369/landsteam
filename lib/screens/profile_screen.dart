@@ -44,7 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: CircleAvatar(
                 radius: 48,
-                backgroundColor: Colors.grey.shade300,
+                backgroundColor: Colors.grey.shade500,
                 child: const Icon(Icons.person, size: 56, color: Colors.white),
               ),
             ),
